@@ -531,7 +531,7 @@
       <button id="nextSongBtn" class="audio-btn" type="button">Random Next</button>
       <span class="audio-status" id="audioStatus">Sedia dimainkan. Tekan Play.</span>
     </div>
-    <audio id="weddingAudio" preload="metadata"></audio>
+    <audio id="weddingAudio" preload="auto" autoplay playsinline></audio>
   </aside>
 
   <section class="screen" id="home">
@@ -806,8 +806,15 @@
           audioStatus.textContent = "Sedang dimainkan: " + songName(audio.src);
         }).catch(function () {
           updatePlayButton(false);
-          audioStatus.textContent = "Browser perlukan interaksi. Tekan Play semula.";
+          audioStatus.textContent = "Autoplay disekat browser. Cuba fokus tab ini atau tekan Play.";
         });
+      }
+
+      function attemptAutoplay() {
+        if (!audio.src) {
+          loadRandomSong();
+        }
+        playAudio();
       }
 
       playPauseBtn.addEventListener("click", function () {
@@ -848,9 +855,14 @@
         audioStatus.textContent = "MP3 tidak dijumpai. Letak fail dalam folder assets/music/.";
       });
 
-      // Try autoplay by default; if blocked, first tap/click will start audio.
-      loadRandomSong();
-      playAudio();
+      // Try autoplay by default and retry on common lifecycle events.
+      attemptAutoplay();
+      window.addEventListener("load", attemptAutoplay);
+      window.addEventListener("focus", attemptAutoplay);
+      window.addEventListener("pageshow", attemptAutoplay);
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") attemptAutoplay();
+      });
 
       function startOnce() {
         if (audio.paused) playAudio();
