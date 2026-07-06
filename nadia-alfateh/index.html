@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walimatul Urus – Nadia & Al Fateh</title>
+  <meta name="description" content="Jemputan Perkahwinan Nor Nadia Binti Zainal & Muhammad Al Fateh Bin Janahuddin – 1 Ogos 2026" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lateef:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:       #b8975a;
+      --gold-light: #d4b896;
+      --gold-dark:  #8a6a30;
+      --cream:      #fdf8f0;
+      --ivory:      #f7f0e3;
+      --brown:      #3d2b1f;
+      --brown-light:#6b4c35;
+      --sage:       #8fa88a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background-color: var(--cream);
+      color: var(--brown);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ========== BACKGROUND ORNAMENT ========== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse at 15% 15%, rgba(184,151,90,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 85%, rgba(184,151,90,0.08) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ========== WRAPPER ========== */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 0 0 60px;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 70px 30px 60px;
+      background: linear-gradient(180deg, #efe6d5 0%, var(--cream) 100%);
+      overflow: hidden;
+    }
+
+    /* corner ornaments */
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23b8975a' stroke-width='1' opacity='0.45'%3E%3Cpath d='M10,10 Q80,5 150,10 Q155,80 150,150 Q80,155 10,150 Q5,80 10,10Z'/%3E%3Cpath d='M20,20 Q80,15 140,20 Q145,80 140,140 Q80,145 20,140 Q15,80 20,20Z'/%3E%3Cline x1='80' y1='5' x2='80' y2='30'/%3E%3Cline x1='155' y1='80' x2='130' y2='80'/%3E%3Cline x1='80' y1='155' x2='80' y2='130'/%3E%3Cline x1='5' y1='80' x2='30' y2='80'/%3E%3Ccircle cx='80' cy='80' r='25'/%3E%3Ccircle cx='80' cy='80' r='4' fill='%23b8975a'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .hero::before { top: 0; left: 0; transform: scale(0.65); transform-origin: top left; }
+    .hero::after  { bottom: 0; right: 0; transform: scale(0.65) rotate(180deg); transform-origin: bottom right; }
+
+    /* bismillah */
+    .bismillah {
+      font-family: 'Lateef', serif;
+      font-size: 2.4rem;
+      color: var(--gold);
+      line-height: 1.3;
+      margin-bottom: 22px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 auto 28px;
+      max-width: 320px;
+    }
+    .hero-divider span { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
+    .hero-divider-icon { color: var(--gold); font-size: 1.1rem; }
+
+    .invite-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 32px;
+    }
+
+    /* ========== NAMES ========== */
+    .names-block { margin-bottom: 10px; }
+
+    .name-bride,
+    .name-groom {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--brown);
+      line-height: 1.15;
+    }
+    .name-bride  { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+    .name-groom  { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+
+    .names-ampersand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 12vw, 4rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+      margin: 4px 0;
+    }
+
+    .name-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      margin-top: 6px;
+    }
+
+    /* ========== MAIN ORNAMENTAL BORDER ========== */
+    .card {
+      margin: 0 20px;
+      border: 1px solid var(--gold-light);
+      border-radius: 2px;
+      position: relative;
+      background: white;
+    }
+    .card::before,
+    .card::after {
+      content: '✦';
+      position: absolute;
+      color: var(--gold-light);
+      font-size: 0.7rem;
+      background: white;
+      padding: 0 6px;
+    }
+    .card::before { top: -0.55em; left: 50%; transform: translateX(-50%); }
+    .card::after  { bottom: -0.55em; left: 50%; transform: translateX(-50%); }
+
+    /* ========== SECTION COMMON ========== */
+    .section {
+      padding: 40px 30px;
+      text-align: center;
+      border-bottom: 1px solid rgba(184,151,90,0.18);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 20px;
+    }
+
+    /* ========== DATE & TIME ========== */
+    .event-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 15vw, 4.5rem);
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 1;
+    }
+    .event-month {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 5vw, 1.6rem);
+      font-weight: 300;
+      color: var(--gold-dark);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .event-day {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      margin-top: 4px;
+    }
+    .event-time {
+      margin-top: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--brown-light);
+      font-style: italic;
+    }
+
+    /* ========== COUNTDOWN ========== */
+    .countdown-wrap { margin-top: 28px; }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+    .cd-box {
+      min-width: 58px;
+      text-align: center;
+    }
+    .cd-num {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--gold-dark);
+      line-height: 1;
+    }
+    .cd-label {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      margin-top: 4px;
+    }
+    .cd-sep {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--gold-light);
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+
+    /* ========== LOCATION ========== */
+    .venue-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .venue-address {
+      font-size: 0.9rem;
+      color: var(--brown-light);
+      line-height: 1.7;
+    }
+    .btn-map {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 11px 28px;
+      border: 1px solid var(--gold);
+      color: var(--gold-dark);
+      font-family: 'EB Garamond', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn-map:hover { background: var(--gold); color: white; }
+    .btn-map svg { width: 14px; height: 14px; }
+
+    /* ========== MAP IFRAME ========== */
+    .map-frame {
+      margin-top: 24px;
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 2px;
+      opacity: 0.9;
+    }
+
+    /* ========== TENTATIVE ========== */
+    .atur-cara {
+      list-style: none;
+    }
+    .atur-cara li {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      font-size: 0.95rem;
+      color: var(--brown-light);
+      padding: 7px 0;
+      border-bottom: 1px dashed rgba(184,151,90,0.2);
+    }
+    .atur-cara li:last-child { border-bottom: none; }
+    .atur-cara .ac-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--gold-dark);
+      white-space: nowrap;
+      min-width: 95px;
+    }
+
+    /* ========== DOAS ========== */
+    .doa-arabic {
+      font-family: 'Lateef', serif;
+      font-size: 1.9rem;
+      color: var(--gold-dark);
+      line-height: 1.8;
+      margin-bottom: 10px;
+      direction: rtl;
+    }
+    .doa-malay {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--brown-light);
+      line-height: 1.8;
+    }
+
+    /* ========== FAMILY BLOCK ========== */
+    .family-block { margin-bottom: 16px; }
+    .family-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 6px;
+    }
+    .family-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--brown);
+      line-height: 1.5;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      text-align: center;
+      padding: 40px 20px 20px;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+      text-transform: uppercase;
+    }
+    .footer-heart { color: var(--gold); font-size: 1rem; }
+
+    /* ========== ORNAMENTAL DIVIDERS ========== */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 auto 24px;
+      max-width: 240px;
+    }
+    .ornament span { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
+    .ornament-icon { color: var(--gold); font-size: 0.85rem; }
+
+    /* ========== RSVP ========== */
+    .rsvp-note {
+      font-size: 0.82rem;
+      color: var(--brown-light);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+    .btn-rsvp {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 34px;
+      background: var(--gold);
+      color: white;
+      font-family: 'EB Garamond', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.25s;
+    }
+    .btn-rsvp:hover { background: var(--gold-dark); }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.9s ease both; }
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+    .delay-4 { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ======== HERO ======== -->
+  <div class="hero">
+    <p class="bismillah fade-up">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+
+    <div class="hero-divider fade-up delay-1">
+      <span></span>
+      <span class="hero-divider-icon">✦</span>
+      <span></span>
+    </div>
+
+    <p class="invite-label fade-up delay-1">Dengan Penuh Rasa Kesyukuran</p>
+
+    <div class="names-block fade-up delay-2">
+      <p class="name-bride">Nor Nadia</p>
+      <p class="name-sub">binti Zainal</p>
+      <span class="names-ampersand">&</span>
+      <p class="name-groom">Muhammad Al Fateh</p>
+      <p class="name-sub">bin Janahuddin</p>
+    </div>
+  </div>
+
+  <!-- ======== MAIN CARD ======== -->
+  <div class="card">
+
+    <!-- Invite intro -->
+    <div class="section fade-up delay-3">
+      <div class="ornament">
+        <span></span>
+        <span class="ornament-icon">✦</span>
+        <span></span>
+      </div>
+      <p style="font-size:0.9rem; color:var(--brown-light); line-height:1.9;">
+        Dengan penuh rasa syukur ke hadrat Ilahi, kami dengan sukacitanya<br />
+        menjemput <em>Tuan/Puan/Encik/Cik</em> ke majlis perkahwinan puteri &amp; putera kami.
+      </p>
+    </div>
+
+    <!-- Date & Time -->
+    <div class="section">
+      <p class="section-title">Tarikh &amp; Masa</p>
+
+      <div class="ornament">
+        <span></span>
+        <span class="ornament-icon">❧</span>
+        <span></span>
+      </div>
+
+      <p class="event-date">1</p>
+      <p class="event-month">Ogos 2026</p>
+      <p class="event-day">Sabtu</p>
+      <p class="event-time">7.00 Malam — 10.00 Malam</p>
+
+      <!-- Countdown -->
+      <div class="countdown-wrap">
+        <p class="section-title" style="margin-top:28px; margin-bottom:14px;">Menghitung Hari</p>
+        <div class="countdown" id="countdown">
+          <div class="cd-box">
+            <span class="cd-num" id="cd-days">--</span>
+            <span class="cd-label">Hari</span>
+          </div>
+          <span class="cd-sep">:</span>
+          <div class="cd-box">
+            <span class="cd-num" id="cd-hours">--</span>
+            <span class="cd-label">Jam</span>
+          </div>
+          <span class="cd-sep">:</span>
+          <div class="cd-box">
+            <span class="cd-num" id="cd-mins">--</span>
+            <span class="cd-label">Minit</span>
+          </div>
+          <span class="cd-sep">:</span>
+          <div class="cd-box">
+            <span class="cd-num" id="cd-secs">--</span>
+            <span class="cd-label">Saat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tentative -->
+    <div class="section">
+      <p class="section-title">Atur Cara</p>
+      <div class="ornament">
+        <span></span>
+        <span class="ornament-icon">✦</span>
+        <span></span>
+      </div>
+      <ul class="atur-cara">
+        <li>
+          <span class="ac-time">7.00 Malam</span>
+          <span>Ketibaan tetamu jemputan</span>
+        </li>
+        <li>
+          <span class="ac-time">7.30 Malam</span>
+          <span>Ketibaan pengantin</span>
+        </li>
+        <li>
+          <span class="ac-time">8.00 Malam</span>
+          <span>Jamuan makan malam</span>
+        </li>
+        <li>
+          <span class="ac-time">10.00 Malam</span>
+          <span>Majlis bersurai</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Location -->
+    <div class="section">
+      <p class="section-title">Lokasi Majlis</p>
+      <div class="ornament">
+        <span></span>
+        <span class="ornament-icon">✦</span>
+        <span></span>
+      </div>
+
+      <p class="venue-name">Ayu Villa D'Polo</p>
+      <p class="venue-address">
+        15, Persiaran Brash,<br />
+        30350 Ipoh, Perak
+      </p>
+
+      <a class="btn-map"
+         href="https://maps.google.com/?q=Ayu+Villa+D'Polo+15+Persiaran+Brash+30350+Ipoh+Perak"
+         target="_blank"
+         rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        Lihat Lokasi
+      </a>
+
+      <!-- Google Maps embed (no API key required) -->
+      <iframe
+        class="map-frame"
+        title="Lokasi Ayu Villa D'Polo"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=Ayu+Villa+D'Polo,+15+Persiaran+Brash,+30350+Ipoh,+Perak&output=embed">
+      </iframe>
+      <p style="font-size:0.7rem;color:var(--brown-light);margin-top:8px;font-style:italic;">
+        * Sekiranya peta tidak dipaparkan, sila klik butang "Lihat Lokasi" di atas.
+      </p>
+    </div>
+
+    <!-- Doa -->
+    <div class="section">
+      <p class="section-title">Doa Restu</p>
+      <div class="ornament">
+        <span></span>
+        <span class="ornament-icon">✦</span>
+        <span></span>
+      </div>
+      <p class="doa-arabic">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا</p>
+      <p class="doa-malay">
+        "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri."<br />
+        <em>(Surah Ar-Rum: 21)</em>
+      </p>
+    </div>
+
+    <!-- Family -->
+    <div class="section">
+      <p class="section-title">Daripada Keluarga</p>
+      <div class="ornament">
+        <span></span>
+        <span class="ornament-icon">✦</span>
+        <span></span>
+      </div>
+
+      <div class="family-block">
+        <p class="family-label">Keluarga Pengantin Perempuan</p>
+        <p class="family-name">Keluarga Zainal</p>
+      </div>
+
+      <div class="ornament" style="margin:16px auto;">
+        <span></span>
+        <span class="ornament-icon">✦</span>
+        <span></span>
+      </div>
+
+      <div class="family-block">
+        <p class="family-label">Keluarga Pengantin Lelaki</p>
+        <p class="family-name">Keluarga Janahuddin</p>
+      </div>
+    </div>
+
+    <!-- RSVP -->
+    <div class="section">
+      <p class="section-title">RSVP</p>
+      <div class="ornament">
+        <span></span>
+        <span class="ornament-icon">✦</span>
+        <span></span>
+      </div>
+      <p class="rsvp-note">
+        Kehadiran anda amat bermakna bagi kami.<br />
+        Sila maklumkan kehadiran anda melalui WhatsApp.
+      </p>
+      <!-- Replace 601XXXXXXXX with the host's actual WhatsApp number (country code, no +) -->
+      <a class="btn-rsvp"
+         href="https://wa.me/601XXXXXXXX?text=Saya%20akan%20hadir%20ke%20Majlis%20Perkahwinan%20Nadia%20%26%20Al%20Fateh%20pada%201%20Ogos%202026."
+         target="_blank"
+         rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+        </svg>
+        Sahkan Kehadiran
+      </a>
+    </div>
+
+  </div><!-- /.card -->
+
+  <!-- ======== FOOTER ======== -->
+  <div class="footer">
+    <p>Nor Nadia <span class="footer-heart">♡</span> Muhammad Al Fateh</p>
+    <p style="margin-top:6px;">1 Ogos 2026 · Ipoh, Perak</p>
+    <p style="margin-top:10px; font-size:0.65rem; opacity:0.6;">Kami yang meraikan, turut mendoakan kehadiran anda.</p>
+  </div>
+
+</div><!-- /.page -->
+
+<!-- ======== COUNTDOWN SCRIPT ======== -->
+<script>
+  (function () {
+    // Target: 1 August 2026, 19:00 MYT (UTC+8)
+    var target = new Date('2026-08-01T19:00:00+08:00').getTime();
+
+    function pad(n) { return n < 10 ? '0' + n : n; }
+
+    function tick() {
+      var now  = Date.now();
+      var diff = target - now;
+
+      if (diff <= 0) {
+        document.getElementById('countdown').innerHTML =
+          '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;color:var(--gold-dark);font-size:1.1rem;">🌸 Selamat Pengantin Baru 🌸</p>';
+        return;
+      }
+
+      var days  = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins  = Math.floor((diff % 3600000)  / 60000);
+      var secs  = Math.floor((diff % 60000)    / 1000);
+
+      document.getElementById('cd-days').textContent  = pad(days);
+      document.getElementById('cd-hours').textContent = pad(hours);
+      document.getElementById('cd-mins').textContent  = pad(mins);
+      document.getElementById('cd-secs').textContent  = pad(secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+
+</body>
+</html>
