@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet" />
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -427,7 +428,16 @@
       font-size: 0.8rem;
       letter-spacing: 0.09em;
       text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
       transition: all 0.25s ease;
+    }
+
+    .btn-icon {
+      font-size: 1.05rem;
+      line-height: 1;
     }
 
     .action-btn:hover {
@@ -473,6 +483,42 @@
       font-size: 0.78rem;
       text-align: center;
       line-height: 1.6;
+    }
+
+    .contact-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+    }
+
+    .contact-card {
+      border: 1px solid rgba(111, 29, 51, 0.2);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .contact-name {
+      text-align: center;
+      color: #5f2a3d;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .contact-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+
+    .contact-actions .action-btn {
+      flex: 1;
+      text-align: center;
+      padding-left: 10px;
+      padding-right: 10px;
     }
 
     .fade-in {
@@ -560,6 +606,7 @@
     <a href="#invitation">Undangan</a>
     <a href="#timeline">Atur Cara</a>
     <a href="#location">Lokasi</a>
+    <a href="#hubungi">Hubungi</a>
     <a href="#rsvp">RSVP</a>
   </nav>
 
@@ -702,9 +749,9 @@
       </p>
 
       <div class="button-row">
-        <a class="action-btn" href="https://waze.com/ul?q=Ayu+Villa+D'Polo,+15+Persiaran+Brash,+30350+Ipoh,+Perak&navigate=yes" target="_blank" rel="noopener noreferrer">Buka Waze</a>
-        <a class="action-btn" href="https://maps.google.com/?q=Ayu+Villa+D'Polo+15+Persiaran+Brash+30350+Ipoh+Perak" target="_blank" rel="noopener noreferrer">Buka Google Maps</a>
-        <a class="action-btn" href="https://maps.apple.com/?q=Ayu+Villa+D'Polo,+15+Persiaran+Brash,+30350+Ipoh,+Perak" target="_blank" rel="noopener noreferrer">Buka Apple Maps</a>
+        <a class="action-btn" href="https://waze.com/ul?q=Ayu+Villa+D'Polo,+15+Persiaran+Brash,+30350+Ipoh,+Perak&navigate=yes" target="_blank" rel="noopener noreferrer"><span class="ti ti-map-2 btn-icon" aria-hidden="true"></span>Buka Waze</a>
+        <a class="action-btn" href="https://maps.google.com/?q=Ayu+Villa+D'Polo+15+Persiaran+Brash+30350+Ipoh+Perak" target="_blank" rel="noopener noreferrer"><span class="ti ti-brand-google-maps btn-icon" aria-hidden="true"></span>Buka Google Maps</a>
+        <a class="action-btn" href="https://maps.apple.com/?q=Ayu+Villa+D'Polo,+15+Persiaran+Brash,+30350+Ipoh,+Perak" target="_blank" rel="noopener noreferrer"><span class="ti ti-map-pin btn-icon" aria-hidden="true"></span>Buka Apple Maps</a>
       </div>
 
       <iframe
@@ -715,6 +762,34 @@
         referrerpolicy="no-referrer-when-downgrade"
         src="https://maps.google.com/maps?q=Ayu+Villa+D'Polo,+15+Persiaran+Brash,+30350+Ipoh,+Perak&output=embed">
       </iframe>
+    </article>
+  </section>
+
+  <section class="screen" id="hubungi">
+    <article class="card fade-in">
+      <h2 class="section-title">Hubungi</h2>
+      <p class="center-text">
+        Untuk sebarang pertanyaan, anda boleh hubungi kami melalui panggilan
+        telefon atau WhatsApp.
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <p class="contact-name">En. Zainal (Bapa Pengantin Perempuan)</p>
+          <div class="contact-actions">
+            <a class="action-btn" href="tel:+60107759013"><span class="ti ti-phone-call btn-icon" aria-hidden="true"></span>Hubungi</a>
+            <a class="action-btn" href="https://wa.me/60107759013" target="_blank" rel="noopener noreferrer"><span class="ti ti-brand-whatsapp btn-icon" aria-hidden="true"></span>WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <p class="contact-name">En. Zulhelmi (Abang Pengantin Perempuan)</p>
+          <div class="contact-actions">
+            <a class="action-btn" href="tel:+60105217274"><span class="ti ti-phone-call btn-icon" aria-hidden="true"></span>Hubungi</a>
+            <a class="action-btn" href="https://wa.me/60105217274" target="_blank" rel="noopener noreferrer"><span class="ti ti-brand-whatsapp btn-icon" aria-hidden="true"></span>WhatsApp</a>
+          </div>
+        </div>
+      </div>
     </article>
   </section>
 
@@ -729,7 +804,7 @@
       <form class="rsvp-form" id="rsvpForm">
         <label class="rsvp-label" for="rsvpPax">Jumlah Kehadiran (Pax)</label>
         <input class="rsvp-input" id="rsvpPax" name="pax" type="number" min="1" step="1" inputmode="numeric" value="1" required />
-        <button class="action-btn" type="submit">Sahkan Kehadiran</button>
+        <button class="action-btn" type="submit"><span class="ti ti-brand-whatsapp btn-icon" aria-hidden="true"></span>Sahkan Kehadiran</button>
         <p class="rsvp-hint">Mesej WhatsApp akan sertakan jumlah pax anda.</p>
       </form>
 
