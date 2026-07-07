@@ -1401,8 +1401,8 @@
       }
 
       function loadWishes() {
-        fetchWithApiFallback("/api/ucapan/list", {
-          method: "POST",
+        fetchWithApiFallback("/api/ucapan", {
+          method: "GET",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ client_session_id: clientSessionId })
         })
