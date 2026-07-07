@@ -53,8 +53,8 @@
     .petal {
       position: absolute;
       top: -180px;
-      width: 14px;
-      height: 20px;
+      width: 20px;
+      height: 28px;
       background: linear-gradient(155deg, #f1c3d7 0%, #982f64 45%, #660033 100%);
       border-radius: 70% 45% 65% 45%;
       transform-origin: center;
@@ -74,8 +74,8 @@
     }
 
     .petal::before {
-      width: 9px;
-      height: 11px;
+      width: 12px;
+      height: 14px;
       left: 1px;
       top: 1px;
       background: radial-gradient(circle at 35% 30%, rgba(255, 235, 240, 0.85), rgba(255, 235, 240, 0));
@@ -83,8 +83,8 @@
     }
 
     .petal::after {
-      width: 9px;
-      height: 10px;
+      width: 12px;
+      height: 13px;
       right: -2px;
       bottom: 2px;
       background: linear-gradient(145deg, rgba(120, 21, 51, 0.55), rgba(72, 10, 30, 0.08));
@@ -436,6 +436,12 @@
       background: rgba(255, 255, 255, 0.75);
     }
 
+    .timeline .timeline-item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: calc((100% - 12px) / 2);
+    }
+
     .timeline-time {
       color: #7a2a42;
       font-size: 0.72rem;
@@ -653,6 +659,12 @@
       .countdown {
         grid-template-columns: 1fr;
       }
+
+      .timeline .timeline-item:last-child:nth-child(odd) {
+        grid-column: auto;
+        justify-self: stretch;
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -781,12 +793,12 @@
       <div class="timeline">
         <div class="timeline-item">
           <p class="timeline-time">7:45 Malam</p>
-          <p class="timeline-desc">Majlis Bermula.</p>
+          <p class="timeline-desc">Majlis Bermula &amp; Ketibaan Tetamu</p>
         </div>
-        <div class="timeline-item">
+        <!-- <div class="timeline-item">
           <p class="timeline-time">8:00 Malam</p>
           <p class="timeline-desc">Ketibaan Tetamu.</p>
-        </div>
+        </div> -->
         <div class="timeline-item">
           <p class="timeline-time">8:30 Malam</p>
           <p class="timeline-desc">Perarakan Mempelai &amp; Rombongan.</p>
@@ -932,7 +944,7 @@
         petal.style.animationDuration = 7 + Math.random() * 11 + "s";
         petal.style.animationDelay = Math.random() * 9 + "s";
         petal.style.setProperty("--drift", (Math.random() * 260 - 130) + "px");
-        petal.style.setProperty("--scale", (0.65 + Math.random() * 0.8).toFixed(2));
+        petal.style.setProperty("--scale", (0.9 + Math.random() * 1.05).toFixed(2));
         petal.style.opacity = String(0.45 + Math.random() * 0.45);
         flowerField.appendChild(petal);
       }
