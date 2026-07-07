@@ -436,6 +436,45 @@
       border-color: transparent;
     }
 
+    .rsvp-form {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .rsvp-label {
+      color: #5c3b46;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .rsvp-input {
+      width: min(240px, 100%);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(188, 146, 89, 0.5);
+      background: rgba(255, 255, 255, 0.9);
+      color: #4a2c37;
+      font-family: inherit;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .rsvp-input:focus {
+      outline: 2px solid rgba(122, 10, 66, 0.25);
+      border-color: #7a0a42;
+    }
+
+    .rsvp-hint {
+      color: #765861;
+      font-size: 0.78rem;
+      text-align: center;
+      line-height: 1.6;
+    }
+
     .fade-in {
       opacity: 0;
       transform: translateY(24px);
@@ -683,13 +722,16 @@
     <article class="card fade-in">
       <h2 class="section-title">RSVP</h2>
       <p class="center-text">
-        Kehadiran anda amat bermakna bagi kami. Klik butang di bawah untuk sahkan
-        kehadiran melalui WhatsApp.
+        Kehadiran anda amat bermakna bagi kami. Isi jumlah pax dahulu, kemudian
+        klik butang di bawah untuk sahkan kehadiran melalui WhatsApp.
       </p>
 
-      <div class="button-row">
-        <a class="action-btn" href="https://wa.me/60147567607?text=Saya%20akan%20hadir%20ke%20Majlis%20Perkahwinan%20Nadia%20%26%20Al%20Fateh%20pada%201%20Ogos%202026." target="_blank" rel="noopener noreferrer">Sahkan Kehadiran</a>
-      </div>
+      <form class="rsvp-form" id="rsvpForm">
+        <label class="rsvp-label" for="rsvpPax">Jumlah Kehadiran (Pax)</label>
+        <input class="rsvp-input" id="rsvpPax" name="pax" type="number" min="1" step="1" inputmode="numeric" value="1" required />
+        <button class="action-btn" type="submit">Sahkan Kehadiran</button>
+        <p class="rsvp-hint">Mesej WhatsApp akan sertakan jumlah pax anda.</p>
+      </form>
 
       <p class="footer-note" style="margin-top: 22px;">
         1 Ogos 2026 | Nor Nadia &amp; Muhammad Al Fateh
@@ -869,6 +911,26 @@
         window.removeEventListener("pointerdown", startOnce);
       }
       window.addEventListener("pointerdown", startOnce, { once: true });
+
+      var rsvpForm = document.getElementById("rsvpForm");
+      var rsvpPaxInput = document.getElementById("rsvpPax");
+
+      if (rsvpForm && rsvpPaxInput) {
+        rsvpForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var pax = Number(rsvpPaxInput.value);
+          if (!Number.isInteger(pax) || pax < 1) {
+            rsvpPaxInput.focus();
+            rsvpPaxInput.reportValidity();
+            return;
+          }
+
+          var message = "Saya akan hadir ke Majlis Perkahwinan Nadia & Al Fateh pada 1 Ogos 2026. Pax: " + pax + ".";
+          var waUrl = "https://wa.me/60147567607?text=" + encodeURIComponent(message);
+          window.open(waUrl, "_blank", "noopener,noreferrer");
+        });
+      }
     })();
   </script>
 </body>
