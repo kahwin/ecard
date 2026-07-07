@@ -34,10 +34,11 @@
       font-family: "Marcellus", serif;
       color: var(--ink);
       background:
+        linear-gradient(165deg, rgba(61, 0, 31, 0.62) 0%, rgba(102, 0, 51, 0.54) 46%, rgba(79, 0, 40, 0.62) 100%),
         radial-gradient(circle at 10% 20%, rgba(156, 42, 110, 0.34) 0%, transparent 36%),
         radial-gradient(circle at 90% 10%, rgba(125, 15, 76, 0.3) 0%, transparent 40%),
         radial-gradient(circle at 50% 100%, rgba(166, 75, 123, 0.2) 0%, transparent 56%),
-        linear-gradient(165deg, #3d001f 0%, #660033 46%, #4f0028 100%);
+        url("background.webp") center / cover no-repeat fixed;
       overflow-x: hidden;
     }
 
@@ -212,26 +213,73 @@
       overflow: hidden;
     }
 
+    .card > * {
+      position: relative;
+      z-index: 2;
+    }
+
     .card::before {
       content: "";
       position: absolute;
-      width: 200px;
-      height: 200px;
-      right: -70px;
-      top: -70px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(111, 29, 51, 0.16), rgba(111, 29, 51, 0));
+      width: clamp(120px, 20vw, 220px);
+      aspect-ratio: 1 / 1;
+      left: -48px;
+      top: -46px;
+      background: url("flower-1.png") center / contain no-repeat;
+      opacity: 0.78;
+      filter: drop-shadow(0 10px 16px rgba(73, 14, 37, 0.22));
+      transform: rotate(-12deg) scale(1);
+      transform-origin: center;
+      animation: flowerFloatA 5.8s ease-in-out infinite;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      z-index: 1;
+      pointer-events: none;
     }
 
     .card::after {
       content: "";
       position: absolute;
-      width: 160px;
-      height: 160px;
-      left: -60px;
-      bottom: -50px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(188, 146, 89, 0.2), rgba(188, 146, 89, 0));
+      width: clamp(120px, 20vw, 220px);
+      aspect-ratio: 1 / 1;
+      right: -52px;
+      bottom: -48px;
+      background: url("flower-2.png") center / contain no-repeat;
+      opacity: 0.8;
+      filter: drop-shadow(0 10px 16px rgba(73, 14, 37, 0.22));
+      transform: rotate(170deg) scale(1);
+      transform-origin: center;
+      animation: flowerFloatB 6.4s ease-in-out infinite;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      transform: rotate(-8deg) scale(1.14);
+      opacity: 0.92;
+    }
+
+    .card:hover::after {
+      transform: rotate(176deg) scale(1.14);
+      opacity: 0.94;
+    }
+
+    @keyframes flowerFloatA {
+      0%, 100% {
+        transform: translateY(0) rotate(-12deg) scale(1);
+      }
+      50% {
+        transform: translateY(8px) rotate(-8deg) scale(1.03);
+      }
+    }
+
+    @keyframes flowerFloatB {
+      0%, 100% {
+        transform: translateY(0) rotate(170deg) scale(1);
+      }
+      50% {
+        transform: translateY(-8px) rotate(176deg) scale(1.03);
+      }
     }
 
     .tiny-label {
@@ -584,6 +632,16 @@
 
       .screen {
         padding: 100px 14px 150px;
+      }
+
+      .card::before {
+        left: -36px;
+        top: -34px;
+      }
+
+      .card::after {
+        right: -40px;
+        bottom: -40px;
       }
 
       .card {
