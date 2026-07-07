@@ -561,18 +561,110 @@
       font-size: 0.8rem;
       margin-bottom: 10px;
     }
-
-    .contact-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: nowrap;
-    }
-
     .contact-actions .action-btn {
       flex: 1;
       text-align: center;
       padding-left: 10px;
       padding-right: 10px;
+    }
+
+    .wish-form {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .wish-input,
+    .wish-textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(188, 146, 89, 0.5);
+      background: rgba(255, 255, 255, 0.92);
+      color: #4a2c37;
+      font-family: inherit;
+      font-size: 0.98rem;
+    }
+
+    .wish-textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .wish-input:focus,
+    .wish-textarea:focus {
+      outline: 2px solid rgba(122, 10, 66, 0.25);
+      border-color: #7a0a42;
+    }
+
+    .wish-list {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .wish-item {
+      border: 1px solid rgba(111, 29, 51, 0.2);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .wish-name {
+      color: #6a2840;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .wish-message {
+      color: #4f3842;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .wish-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .wish-action-btn {
+      border: 1px solid rgba(188, 146, 89, 0.45);
+      background: rgba(255, 255, 255, 0.8);
+      color: #6d3043;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-family: inherit;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .wish-action-btn:hover {
+      background: linear-gradient(125deg, #660033, #7a0a42);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .wish-empty {
+      text-align: center;
+      color: #7c5d67;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-top: 12px;
     }
 
     .fade-in {
@@ -678,6 +770,7 @@
     <a href="#location">Lokasi</a>
     <a href="#hubungi">Hubungi</a>
     <a href="#rsvp">RSVP</a>
+    <a href="#ucapan">Ucapan</a>
   </nav>
 
   <aside class="audio-panel">
@@ -884,6 +977,24 @@
     </article>
   </section>
 
+  <section class="screen" id="ucapan">
+    <article class="card fade-in">
+      <h2 class="section-title">Ucapan</h2>
+      <p class="center-text">
+        Titipkan ucapan dan doa anda untuk kedua mempelai.
+      </p>
+
+      <form class="wish-form" id="wishForm">
+        <input class="wish-input" id="wishName" name="name" type="text" maxlength="60" placeholder="Nama anda" required />
+        <textarea class="wish-textarea" id="wishMessage" name="message" maxlength="500" placeholder="Ucapan untuk pengantin" required></textarea>
+        <button class="action-btn" type="submit"><span class="ti ti-heart btn-icon" aria-hidden="true"></span>Hantar Ucapan</button>
+      </form>
+
+      <div class="wish-list" id="wishList"></div>
+      <p class="wish-empty" id="wishEmpty">Belum ada ucapan. Jadilah yang pertama menulis ucapan.</p>
+    </article>
+  </section>
+
   <script>
     (function () {
       var sections = document.querySelectorAll(".screen");
@@ -955,11 +1066,7 @@
       var audioStatus = document.getElementById("audioStatus");
 
       var playlist = [
-        "SelamatPengantinBaru.mp3",
-        "KompangDipalu.mp3",
-        "GambusJodoh.mp3",
-        "DirenjisRenjis.mp3",
-        "BungaiRampai.mp3"
+        "WeddingNasheed.mp3",
       ];
 
       var currentIndex = -1;
@@ -1076,6 +1183,356 @@
           window.open(waUrl, "_blank", "noopener,noreferrer");
         });
       }
+
+      var wishForm = document.getElementById("wishForm");
+      var wishNameInput = document.getElementById("wishName");
+      var wishMessageInput = document.getElementById("wishMessage");
+      var wishList = document.getElementById("wishList");
+      var wishEmpty = document.getElementById("wishEmpty");
+      var allWishes = [];
+
+      var ucapanApiBase = window.UCAPAN_API_BASE || "https://api.kimmohito.com";
+      var clientSessionIdKey = "nadia-alfateh-ucapan-client-session-id";
+      var ownedWishIdsKey = "nadia-alfateh-ucapan-owned-ids-session";
+      var ownedWishKeysKey = "nadia-alfateh-ucapan-owned-keys-session";
+
+      function getClientSessionId() {
+        var id = sessionStorage.getItem(clientSessionIdKey);
+        if (id) return id;
+        id = "s_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 10);
+        sessionStorage.setItem(clientSessionIdKey, id);
+        return id;
+      }
+
+      var clientSessionId = getClientSessionId();
+
+      function readJsonArray(key) {
+        try {
+          var parsed = JSON.parse(sessionStorage.getItem(key) || "[]");
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (_) {
+          return [];
+        }
+      }
+
+      function saveJsonArray(key, value) {
+        sessionStorage.setItem(key, JSON.stringify(value));
+      }
+
+      function getOwnedIdList() {
+        return readJsonArray(ownedWishIdsKey).map(function (item) { return String(item); });
+      }
+
+      function getOwnedKeyList() {
+        return readJsonArray(ownedWishKeysKey).map(function (item) { return String(item); });
+      }
+
+      function rememberOwnedWish(wish) {
+        var ids = getOwnedIdList();
+        var keys = getOwnedKeyList();
+
+        if (wish && wish.id != null) {
+          var id = String(wish.id);
+          if (ids.indexOf(id) === -1) ids.push(id);
+          saveJsonArray(ownedWishIdsKey, ids);
+        }
+
+        if (wish && wish._key) {
+          if (keys.indexOf(wish._key) === -1) keys.push(wish._key);
+          saveJsonArray(ownedWishKeysKey, keys);
+        }
+      }
+
+      function unrememberOwnedWish(wish) {
+        var ids = getOwnedIdList();
+        var keys = getOwnedKeyList();
+
+        if (wish && wish.id != null) {
+          ids = ids.filter(function (id) { return id !== String(wish.id); });
+          saveJsonArray(ownedWishIdsKey, ids);
+        }
+
+        if (wish && wish._key) {
+          keys = keys.filter(function (key) { return key !== wish._key; });
+          saveJsonArray(ownedWishKeysKey, keys);
+        }
+      }
+
+      function safeText(value) {
+        return String(value || "").trim();
+      }
+
+      function wishKey(name, message) {
+        return safeText(name).toLowerCase() + "::" + safeText(message).toLowerCase();
+      }
+
+      function parseWishList(data) {
+        return Array.isArray(data)
+          ? data
+          : (Array.isArray(data && data.wishes)
+            ? data.wishes
+            : (Array.isArray(data && data.data) ? data.data : []));
+      }
+
+      function renderWishes() {
+        if (!wishList || !wishEmpty) return;
+        wishList.innerHTML = "";
+
+        if (!allWishes.length) {
+          wishEmpty.style.display = "block";
+          return;
+        }
+
+        wishEmpty.style.display = "none";
+
+        allWishes.forEach(function (wish) {
+          var item = document.createElement("article");
+          item.className = "wish-item";
+
+          var name = document.createElement("p");
+          name.className = "wish-name";
+          name.textContent = safeText(wish.name) || "Tetamu";
+
+          var message = document.createElement("p");
+          message.className = "wish-message";
+          message.textContent = safeText(wish.message);
+
+          item.appendChild(name);
+          item.appendChild(message);
+
+          if (wish._owned && wish.id) {
+            var actions = document.createElement("div");
+            actions.className = "wish-actions";
+
+            var editBtn = document.createElement("button");
+            editBtn.type = "button";
+            editBtn.className = "wish-action-btn";
+            editBtn.innerHTML = "<span class='ti ti-edit' aria-hidden='true'></span>Edit";
+            editBtn.addEventListener("click", function () { handleEditWish(wish); });
+
+            var deleteBtn = document.createElement("button");
+            deleteBtn.type = "button";
+            deleteBtn.className = "wish-action-btn";
+            deleteBtn.innerHTML = "<span class='ti ti-trash' aria-hidden='true'></span>Delete";
+            deleteBtn.addEventListener("click", function () { handleDeleteWish(wish); });
+
+            actions.appendChild(editBtn);
+            actions.appendChild(deleteBtn);
+            item.appendChild(actions);
+          }
+
+          wishList.appendChild(item);
+        });
+      }
+
+      function normalizeWishes(items) {
+        var ownedIds = getOwnedIdList();
+        var ownedKeys = getOwnedKeyList();
+
+        if (!Array.isArray(items)) return [];
+        return items
+          .map(function (entry) {
+            var name = safeText(entry && entry.name);
+            var message = safeText(entry && entry.message);
+            var key = wishKey(name, message);
+            var id = entry && entry.id != null ? String(entry.id) : null;
+
+            return {
+              id: id,
+              name: name,
+              message: message,
+              _key: key,
+              _owned: (id && ownedIds.indexOf(id) !== -1) || ownedKeys.indexOf(key) !== -1
+            };
+          })
+          .filter(function (entry) {
+            return entry.name && entry.message;
+          });
+      }
+
+      function getApiBases() {
+        var candidates = [];
+
+        function pushUnique(base) {
+          if (candidates.indexOf(base) === -1) {
+            candidates.push(base);
+          }
+        }
+
+        if (ucapanApiBase) {
+          pushUnique(ucapanApiBase.replace(/\/$/, ""));
+        }
+
+        if (window.location.protocol !== "file:") {
+          pushUnique("");
+        }
+
+        pushUnique("http://localhost:3000");
+
+        return candidates;
+      }
+
+      function fetchWithApiFallback(path, options) {
+        var bases = getApiBases();
+        var index = 0;
+
+        function attempt() {
+          if (index >= bases.length) {
+            return Promise.reject(new Error("api_unreachable"));
+          }
+
+          var base = bases[index];
+          index += 1;
+
+          return fetch(base + path, options)
+            .then(function (response) {
+              if (!response.ok) {
+                throw new Error("http_" + response.status);
+              }
+              ucapanApiBase = base;
+              return response;
+            })
+            .catch(function () {
+              return attempt();
+            });
+        }
+
+        return attempt();
+      }
+
+      function loadWishes() {
+        fetchWithApiFallback("/api/ucapan/list", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ client_session_id: clientSessionId })
+        })
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            allWishes = normalizeWishes(parseWishList(data));
+            renderWishes();
+          })
+          .catch(function () {
+            allWishes = [];
+            renderWishes();
+            if (wishEmpty) {
+              wishEmpty.textContent = "Ucapan belum boleh diakses. Semak API di api-kimmohito.test atau set window.UCAPAN_API_BASE.";
+            }
+          });
+      }
+
+      function handleEditWish(wish) {
+        if (!wish || !wish.id) {
+          alert("Edit perlukan ID dari API.");
+          return;
+        }
+
+        var nextMessage = prompt("Kemaskini ucapan anda:", wish.message);
+        if (nextMessage == null) return;
+        nextMessage = safeText(nextMessage);
+        if (!nextMessage) return;
+
+        fetchWithApiFallback("/api/ucapan/" + encodeURIComponent(wish.id), {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: wish.name,
+            message: nextMessage,
+            client_session_id: clientSessionId,
+            client_token: clientSessionId
+          })
+        })
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            allWishes = normalizeWishes(parseWishList(data));
+            renderWishes();
+          })
+          .catch(function () {
+            alert("Edit gagal. Pastikan endpoint PUT /api/ucapan/{id} tersedia.");
+          });
+      }
+
+      function handleDeleteWish(wish) {
+        if (!wish || !wish.id) {
+          alert("Delete perlukan ID dari API.");
+          return;
+        }
+
+        if (!confirm("Padam ucapan ini?")) return;
+
+        fetchWithApiFallback("/api/ucapan/" + encodeURIComponent(wish.id), {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            client_session_id: clientSessionId,
+            client_token: clientSessionId
+          })
+        })
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            unrememberOwnedWish(wish);
+            allWishes = normalizeWishes(parseWishList(data));
+            renderWishes();
+          })
+          .catch(function () {
+            alert("Delete gagal. Pastikan endpoint DELETE /api/ucapan/{id} tersedia.");
+          });
+      }
+
+      if (wishForm && wishNameInput && wishMessageInput) {
+        wishForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var name = safeText(wishNameInput.value);
+          var message = safeText(wishMessageInput.value);
+
+          if (!name || !message) {
+            if (!name) wishNameInput.focus();
+            else wishMessageInput.focus();
+            return;
+          }
+
+          fetchWithApiFallback("/api/ucapan", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: name,
+              message: message,
+              client_session_id: clientSessionId,
+              client_token: clientSessionId
+            })
+          })
+            .then(function (response) { return response.json(); })
+            .then(function (data) {
+              var updated = parseWishList(data);
+              var created = data && data.wish ? data.wish : null;
+
+              if (!created && Array.isArray(updated)) {
+                created = updated.find(function (item) {
+                  return safeText(item && item.name) === name && safeText(item && item.message) === message;
+                });
+              }
+
+              if (created) {
+                rememberOwnedWish({
+                  id: created.id != null ? created.id : null,
+                  _key: wishKey(created.name, created.message)
+                });
+              } else {
+                rememberOwnedWish({ id: null, _key: wishKey(name, message) });
+              }
+
+              allWishes = normalizeWishes(updated);
+              renderWishes();
+              wishForm.reset();
+              wishNameInput.focus();
+            })
+            .catch(function () {
+              alert("Ucapan tidak berjaya disimpan. Semak endpoint API di api-kimmohito.test.");
+            });
+        });
+      }
+
+      loadWishes();
     })();
   </script>
 </body>
