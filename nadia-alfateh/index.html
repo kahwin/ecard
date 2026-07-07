@@ -1415,7 +1415,7 @@
             allWishes = [];
             renderWishes();
             if (wishEmpty) {
-              wishEmpty.textContent = "Ucapan belum boleh diakses. Semak API di api-kimmohito.test atau set window.UCAPAN_API_BASE.";
+              wishEmpty.textContent = "Ucapan belum boleh diakses. Semak API.";
             }
           });
       }
@@ -1527,7 +1527,7 @@
               wishNameInput.focus();
             })
             .catch(function () {
-              alert("Ucapan tidak berjaya disimpan. Semak endpoint API di api-kimmohito.test.");
+              alert("Ucapan tidak berjaya disimpan. Semak endpoint API.");
             });
         });
       }
