@@ -1401,10 +1401,9 @@
       }
 
       function loadWishes() {
-        fetchWithApiFallback("/api/ucapan", {
+        return fetchWithApiFallback("/api/ucapan", {
           method: "GET",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ client_session_id: clientSessionId })
+          headers: { "Content-Type": "application/json" }
         })
           .then(function (response) { return response.json(); })
           .then(function (data) {
@@ -1491,16 +1490,22 @@
             return;
           }
 
-          fetchWithApiFallback("/api/ucapan", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: name,
-              message: message,
-              client_session_id: clientSessionId,
-              client_token: clientSessionId
+          loadWishes()
+            .catch(function () {
+              return null;
             })
-          })
+            .then(function () {
+              return fetchWithApiFallback("/api/ucapan", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  name: name,
+                  message: message,
+                  client_session_id: clientSessionId,
+                  client_token: clientSessionId
+                })
+              });
+            })
             .then(function (response) { return response.json(); })
             .then(function (data) {
               var updated = parseWishList(data);
@@ -1521,9 +1526,10 @@
                 rememberOwnedWish({ id: null, _key: wishKey(name, message) });
               }
 
-              allWishes = normalizeWishes(updated);
-              renderWishes();
               wishForm.reset();
+              return loadWishes();
+            })
+            .then(function () {
               wishNameInput.focus();
             })
             .catch(function () {
