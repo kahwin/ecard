@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walimatul Urus | Nadia & Al Fateh</title>
+  <meta name="description" content="Kad jemputan digital perkahwinan Nor Nadia & Muhammad Al Fateh" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose: #660033;
+      --rose-soft: #cfa3b9;
+      --blush: #fbf5f3;
+      --ink: #f5ecee;
+      --gold: #bc9259;
+      --gold-soft: #eadac4;
+      --glass: rgba(71, 8, 44, 0.78);
+      --card-shadow: 0 18px 40px rgba(47, 2, 24, 0.22);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+
+    body {
+      font-family: "Marcellus", serif;
+      color: var(--ink);
+      background:
+        linear-gradient(165deg, rgba(61, 0, 31, 0.62) 0%, rgba(102, 0, 51, 0.54) 46%, rgba(79, 0, 40, 0.62) 100%),
+        radial-gradient(circle at 10% 20%, rgba(156, 42, 110, 0.34) 0%, transparent 36%),
+        radial-gradient(circle at 90% 10%, rgba(125, 15, 76, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 50% 100%, rgba(166, 75, 123, 0.2) 0%, transparent 56%),
+        url("background.webp") center / cover no-repeat fixed;
+      overflow-x: hidden;
+    }
+
+    .flower-field {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -180px;
+      width: 20px;
+      height: 28px;
+      background: linear-gradient(155deg, #f1c3d7 0%, #982f64 45%, #660033 100%);
+      border-radius: 70% 45% 65% 45%;
+      transform-origin: center;
+      box-shadow: inset -1px -3px 4px rgba(55, 6, 22, 0.25);
+      opacity: 0.78;
+      filter: blur(0.15px);
+      animation: roseFall linear infinite;
+      will-change: transform;
+    }
+
+    .petal::before,
+    .petal::after {
+      content: "";
+      position: absolute;
+      border-radius: 60% 40% 60% 40%;
+      pointer-events: none;
+    }
+
+    .petal::before {
+      width: 12px;
+      height: 14px;
+      left: 1px;
+      top: 1px;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 235, 240, 0.85), rgba(255, 235, 240, 0));
+      opacity: 0.85;
+    }
+
+    .petal::after {
+      width: 12px;
+      height: 13px;
+      right: -2px;
+      bottom: 2px;
+      background: linear-gradient(145deg, rgba(120, 21, 51, 0.55), rgba(72, 10, 30, 0.08));
+      transform: rotate(-26deg);
+      opacity: 0.55;
+    }
+
+    @keyframes roseFall {
+      from {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(var(--scale));
+      }
+      35% {
+        transform: translate3d(calc(var(--drift) * 0.4), 35vh, 0) rotate(140deg) scale(var(--scale));
+      }
+      70% {
+        transform: translate3d(calc(var(--drift) * 0.75), 70vh, 0) rotate(300deg) scale(var(--scale));
+      }
+      to {
+        transform: translate3d(var(--drift), 115vh, 0) rotate(500deg) scale(var(--scale));
+      }
+    }
+
+    .top-nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      width: min(960px, calc(100% - 28px));
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 10px;
+      border: 1px solid rgba(188, 146, 89, 0.3);
+      border-radius: 999px;
+      background: rgba(74, 0, 37, 0.74);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(89, 36, 48, 0.12);
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #f8e7ea;
+      font-size: 0.78rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-radius: 999px;
+      transition: all 0.25s ease;
+      border: 1px solid transparent;
+    }
+
+    .top-nav a.active,
+    .top-nav a:hover {
+      color: #fff;
+      background: linear-gradient(120deg, var(--rose), #7a0a42);
+      border-color: transparent;
+    }
+
+    .audio-panel {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 35;
+      width: min(360px, calc(100vw - 24px));
+      background: var(--glass);
+      border: 1px solid rgba(188, 146, 89, 0.3);
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(8px);
+      padding: 14px;
+    }
+
+    .audio-title {
+      font-family: "Playfair Display", serif;
+      font-size: 0.95rem;
+      color: #f3d8df;
+      margin-bottom: 8px;
+    }
+
+    .audio-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .audio-btn {
+      background: linear-gradient(120deg, #660033, #7a0a42);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .audio-status {
+      font-size: 0.75rem;
+      color: #e5cfd5;
+      line-height: 1.5;
+    }
+
+    .screen {
+      min-height: 100vh;
+      padding: 110px 20px 80px;
+      display: grid;
+      place-items: center;
+      scroll-snap-align: start;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      width: min(850px, 100%);
+      border-radius: 26px;
+      background: linear-gradient(145deg, rgba(255, 245, 247, 0.93), rgba(249, 236, 239, 0.88));
+      border: 1px solid rgba(205, 165, 105, 0.38);
+      box-shadow: var(--card-shadow);
+      padding: 38px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: clamp(120px, 20vw, 220px);
+      aspect-ratio: 1 / 1;
+      left: -48px;
+      top: -46px;
+      background: url("flower-1.png") center / contain no-repeat;
+      opacity: 0.78;
+      filter: drop-shadow(0 10px 16px rgba(73, 14, 37, 0.22));
+      transform: rotate(-12deg) scale(1);
+      transform-origin: center;
+      animation: flowerFloatA 5.8s ease-in-out infinite;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: clamp(120px, 20vw, 220px);
+      aspect-ratio: 1 / 1;
+      right: -52px;
+      bottom: -48px;
+      background: url("flower-2.png") center / contain no-repeat;
+      opacity: 0.8;
+      filter: drop-shadow(0 10px 16px rgba(73, 14, 37, 0.22));
+      transform: rotate(170deg) scale(1);
+      transform-origin: center;
+      animation: flowerFloatB 6.4s ease-in-out infinite;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      transform: rotate(-8deg) scale(1.14);
+      opacity: 0.92;
+    }
+
+    .card:hover::after {
+      transform: rotate(176deg) scale(1.14);
+      opacity: 0.94;
+    }
+
+    @keyframes flowerFloatA {
+      0%, 100% {
+        transform: translateY(0) rotate(-12deg) scale(1);
+      }
+      50% {
+        transform: translateY(8px) rotate(-8deg) scale(1.03);
+      }
+    }
+
+    @keyframes flowerFloatB {
+      0%, 100% {
+        transform: translateY(0) rotate(170deg) scale(1);
+      }
+      50% {
+        transform: translateY(-8px) rotate(176deg) scale(1.03);
+      }
+    }
+
+    .tiny-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      color: #7e5c4f;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .home-main {
+      text-align: center;
+    }
+
+    .arabic {
+      font-family: "Noto Naskh Arabic", serif;
+      font-size: clamp(1.9rem, 5vw, 2.7rem);
+      color: #6d1f37;
+      margin-bottom: 14px;
+    }
+
+    .title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.9rem, 5vw, 3.4rem);
+      color: #4f1d2f;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #6e5660;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .names {
+      margin: 28px 0;
+      text-align: center;
+    }
+
+    .name {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 5.6vw, 3.2rem);
+      color: #652036;
+      line-height: 1.12;
+    }
+
+    .amp {
+      display: block;
+      margin: 3px 0;
+      font-size: 2rem;
+      color: var(--gold);
+    }
+
+    .with-heart {
+      display: block;
+      margin: 10px 0;
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.6vw, 1.35rem);
+      color: #7a2a42;
+      letter-spacing: 0.04em;
+    }
+
+    .meta-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .meta-item {
+      border: 1px solid rgba(188, 146, 89, 0.27);
+      background: linear-gradient(130deg, #fffdf9, #fbf7f4);
+      border-radius: 15px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .meta-head {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: #9a6a56;
+      margin-bottom: 6px;
+    }
+
+    .meta-value {
+      font-size: 1rem;
+      color: #4f2e39;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      text-align: center;
+      color: #581d32;
+      margin-bottom: 18px;
+    }
+
+    .center-text {
+      text-align: center;
+      line-height: 1.9;
+      color: #4a323b;
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1rem;
+    }
+
+    .countdown {
+      margin: 22px auto 8px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 560px;
+    }
+
+    .cd-box {
+      text-align: center;
+      border-radius: 15px;
+      background: #fff;
+      border: 1px solid rgba(188, 146, 89, 0.25);
+      padding: 14px 6px;
+    }
+
+    .cd-value {
+      display: block;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.35rem, 3.5vw, 2rem);
+      color: #65243a;
+    }
+
+    .cd-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #916c5d;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      border: 1px solid rgba(111, 29, 51, 0.2);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .timeline .timeline-item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: calc((100% - 12px) / 2);
+    }
+
+    .timeline-time {
+      color: #7a2a42;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .timeline-desc {
+      color: #4f3842;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .map-frame {
+      margin-top: 14px;
+      width: 100%;
+      height: 300px;
+      border: 1px solid rgba(188, 146, 89, 0.3);
+      border-radius: 18px;
+    }
+
+    .button-row {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(188, 146, 89, 0.5);
+      color: #6d3043;
+      background: rgba(255, 255, 255, 0.7);
+      font-size: 0.8rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: all 0.25s ease;
+    }
+
+    .btn-icon {
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    .action-btn:hover {
+      background: linear-gradient(125deg, #660033, #7a0a42);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .rsvp-form {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .rsvp-label {
+      color: #5c3b46;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .rsvp-input {
+      width: min(240px, 100%);
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(188, 146, 89, 0.5);
+      background: rgba(255, 255, 255, 0.9);
+      color: #4a2c37;
+      font-family: inherit;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .rsvp-input:focus {
+      outline: 2px solid rgba(122, 10, 66, 0.25);
+      border-color: #7a0a42;
+    }
+
+    .rsvp-hint {
+      color: #765861;
+      font-size: 0.78rem;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .contact-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+    }
+
+    .contact-card {
+      border: 1px solid rgba(111, 29, 51, 0.2);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .contact-name {
+      text-align: center;
+      color: #5f2a3d;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+    .contact-actions .action-btn {
+      flex: 1;
+      text-align: center;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .wish-form {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .wish-input,
+    .wish-textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(188, 146, 89, 0.5);
+      background: rgba(255, 255, 255, 0.92);
+      color: #4a2c37;
+      font-family: inherit;
+      font-size: 0.98rem;
+    }
+
+    .wish-textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .wish-input:focus,
+    .wish-textarea:focus {
+      outline: 2px solid rgba(122, 10, 66, 0.25);
+      border-color: #7a0a42;
+    }
+
+    .wish-list {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .wish-item {
+      border: 1px solid rgba(111, 29, 51, 0.2);
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .wish-name {
+      color: #6a2840;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .wish-message {
+      color: #4f3842;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .wish-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .wish-action-btn {
+      border: 1px solid rgba(188, 146, 89, 0.45);
+      background: rgba(255, 255, 255, 0.8);
+      color: #6d3043;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-family: inherit;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .wish-action-btn:hover {
+      background: linear-gradient(125deg, #660033, #7a0a42);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .wish-empty {
+      text-align: center;
+      color: #7c5d67;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-top: 12px;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      text-align: center;
+      color: #65434b;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 780px) {
+      .top-nav {
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: max(10px, env(safe-area-inset-bottom));
+        border-radius: 20px;
+        width: min(94vw, 720px);
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        gap: 6px;
+        padding: 8px;
+        background: rgba(74, 0, 37, 0.88);
+        border-color: rgba(205, 165, 105, 0.5);
+        box-shadow: 0 14px 28px rgba(62, 18, 32, 0.2);
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .top-nav a {
+        white-space: nowrap;
+        font-size: 0.72rem;
+        letter-spacing: 0.09em;
+        padding: 10px 12px;
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .top-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .audio-panel {
+        left: 8px;
+        right: 8px;
+        bottom: calc(max(10px, env(safe-area-inset-bottom)) + 64px);
+        width: auto;
+      }
+
+      .screen {
+        padding: 100px 14px 150px;
+      }
+
+      .card::before {
+        left: -36px;
+        top: -34px;
+      }
+
+      .card::after {
+        right: -40px;
+        bottom: -40px;
+      }
+
+      .card {
+        padding: 28px 18px;
+      }
+
+      .meta-grid,
+      .timeline,
+      .countdown {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline .timeline-item:last-child:nth-child(odd) {
+        grid-column: auto;
+        justify-self: stretch;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="flower-field" id="flowerField" aria-hidden="true"></div>
+
+  <nav class="top-nav" aria-label="Navigasi Kad Jemputan">
+    <a href="#home" class="active">Utama</a>
+    <a href="#invitation">Undangan</a>
+    <a href="#timeline">Atur Cara</a>
+    <a href="#location">Lokasi</a>
+    <a href="#hubungi">Hubungi</a>
+    <a href="#rsvp">RSVP</a>
+    <a href="#ucapan">Ucapan</a>
+  </nav>
+
+  <aside class="audio-panel">
+    <p class="audio-title">Lagu Majlis Perkahwinan</p>
+    <div class="audio-row">
+      <button id="playPauseBtn" class="audio-btn" type="button">Play</button>
+      <button id="nextSongBtn" class="audio-btn" type="button">Random Next</button>
+      <span class="audio-status" id="audioStatus">Sedia dimainkan. Tekan Play.</span>
+    </div>
+    <audio id="weddingAudio" preload="auto" autoplay playsinline></audio>
+  </aside>
+
+  <section class="screen" id="home">
+    <article class="card fade-in">
+
+      <p class="tiny-label">
+        UNDANGAN MAJLIS PERKAHWINAN
+      </p>
+
+      <div class="home-main">
+        <p class="subtitle">
+          Assalamualaikum & Salam sejahtera.
+        </p>
+        <p class="subtitle">
+          <em>
+            “Sirih bermadah pinang dibelah, adat diturut tersusun rapi,<br/>
+            Merisik sudah bertunang pon sudah, tiba kini majlis menanti"
+          </em>
+        </p>
+      </div>
+
+      <div class="home-main">
+        <p class="arabic">
+          بِسۡـــــــــمِ ٱللهِ ٱلرَّحۡـمَـٰنِ ٱلرَّحِـــــــيمِ
+        </p>
+
+        <p class="subtitle">
+          Dengan izin Allah SWT dan penuh kesyukuran, saya 
+        </p>
+        <h1 class="title">
+          EN. JANAHUDDIN BIN JALALUDDIN<br/>
+          &amp;<br/>
+          PN. MARIAM BINTI ABD. AZIZ 
+        </h1>
+        <p class="subtitle">
+          serta seisi keluarga menjemput,<br/>
+          <em>Dato' / Datin / Tuan / Puan / Encik / Cik</em><br/>
+          ke majlis perkahwinan puteri kesayangan kami:
+        </p>
+      </div>
+
+      <div class="names">
+        <p class="name">Muhammad Al Fateh Bin Janahuddin</p>
+        <span class="with-heart">dengan pilihan hatinya</span>
+        <p class="name">Nor Nadia Binti Zainal</p>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <p class="meta-head">Tarikh</p>
+          <p class="meta-value">1 Ogos 2026</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-head">Hari</p>
+          <p class="meta-value">Sabtu</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-head">Masa</p>
+          <p class="meta-value">7:45 Malam - 10:00 Malam</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-head">Tempat</p>
+          <p class="meta-value">Ayu Villa D'Polo, Ipoh</p>
+        </div>
+      </div>
+      <p class="footer-note">Swipe atau guna panel navigasi</p>
+    </article>
+  </section>
+
+  <section class="screen" id="invitation">
+    <article class="card fade-in">
+      <h2 class="section-title">Undangan</h2>
+      <p class="center-text">
+        Semoga dengan kehadiran serta iringan doa para hadirin, majlis ini akan
+        bertambah seri dan diberkati Allah SWT. Terima kasih atas kesudian hadir
+        meraikan hari bahagia kami.
+      </p>
+
+      <div class="countdown" id="countdown">
+        <div class="cd-box">
+          <span class="cd-value" id="days">--</span>
+          <span class="cd-label">Hari</span>
+        </div>
+        <div class="cd-box">
+          <span class="cd-value" id="hours">--</span>
+          <span class="cd-label">Jam</span>
+        </div>
+        <div class="cd-box">
+          <span class="cd-value" id="mins">--</span>
+          <span class="cd-label">Minit</span>
+        </div>
+        <div class="cd-box">
+          <span class="cd-value" id="secs">--</span>
+          <span class="cd-label">Saat</span>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="screen" id="timeline">
+    <article class="card fade-in">
+      <h2 class="section-title">Atur Cara Majlis</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <p class="timeline-time">7:45 Malam</p>
+          <p class="timeline-desc">Majlis Bermula &amp; Ketibaan Tetamu</p>
+        </div>
+        <!-- <div class="timeline-item">
+          <p class="timeline-time">8:00 Malam</p>
+          <p class="timeline-desc">Ketibaan Tetamu.</p>
+        </div> -->
+        <div class="timeline-item">
+          <p class="timeline-time">8:30 Malam</p>
+          <p class="timeline-desc">Perarakan Mempelai &amp; Rombongan.</p>
+        </div>
+        <div class="timeline-item">
+          <p class="timeline-time">10:00 Malam</p>
+          <p class="timeline-desc">Majlis Tamat.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="screen" id="location">
+    <article class="card fade-in">
+      <h2 class="section-title">Lokasi</h2>
+      <p class="center-text">
+        Ayu Villa D'Polo, 15 Persiaran Brash, 30350 Ipoh, Perak.
+      </p>
+
+      <div class="button-row">
+        <a class="action-btn" href="https://waze.com/ul?q=Ayu+Villa+D'Polo,+15+Persiaran+Brash,+30350+Ipoh,+Perak&navigate=yes" target="_blank" rel="noopener noreferrer"><span class="ti ti-map-2 btn-icon" aria-hidden="true"></span>Buka Waze</a>
+        <a class="action-btn" href="https://maps.google.com/?q=Ayu+Villa+D'Polo+15+Persiaran+Brash+30350+Ipoh+Perak" target="_blank" rel="noopener noreferrer"><span class="ti ti-brand-google-maps btn-icon" aria-hidden="true"></span>Buka Google Maps</a>
+        <a class="action-btn" href="https://maps.apple.com/?q=Ayu+Villa+D'Polo,+15+Persiaran+Brash,+30350+Ipoh,+Perak" target="_blank" rel="noopener noreferrer"><span class="ti ti-map-pin btn-icon" aria-hidden="true"></span>Buka Apple Maps</a>
+      </div>
+
+      <iframe
+        class="map-frame"
+        title="Lokasi Majlis"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=Ayu+Villa+D'Polo,+15+Persiaran+Brash,+30350+Ipoh,+Perak&output=embed">
+      </iframe>
+    </article>
+  </section>
+
+  <section class="screen" id="hubungi">
+    <article class="card fade-in">
+      <h2 class="section-title">Hubungi</h2>
+      <p class="center-text">
+        Untuk sebarang pertanyaan, anda boleh hubungi kami melalui panggilan
+        telefon atau WhatsApp.
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <p class="contact-name">En. Janahuddin (Bapa Pengantin Lelaki)</p>
+          <div class="contact-actions">
+            <a class="action-btn" href="tel:+60135217146"><span class="ti ti-phone-call btn-icon" aria-hidden="true"></span>Hubungi</a>
+            <a class="action-btn" href="https://wa.me/60135217146" target="_blank" rel="noopener noreferrer"><span class="ti ti-brand-whatsapp btn-icon" aria-hidden="true"></span>WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <p class="contact-name">Pn. Mariam (Ibu Pengantin Lelaki)</p>
+          <div class="contact-actions">
+            <a class="action-btn" href="tel:+60199008447"><span class="ti ti-phone-call btn-icon" aria-hidden="true"></span>Hubungi</a>
+            <a class="action-btn" href="https://wa.me/60199008447" target="_blank" rel="noopener noreferrer"><span class="ti ti-brand-whatsapp btn-icon" aria-hidden="true"></span>WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="screen" id="rsvp">
+    <article class="card fade-in">
+      <h2 class="section-title">RSVP</h2>
+      <p class="center-text">
+        Kehadiran anda amat bermakna bagi kami. Isi jumlah pax dahulu, kemudian
+        klik butang di bawah untuk sahkan kehadiran melalui WhatsApp.
+      </p>
+
+      <form class="rsvp-form" id="rsvpForm">
+        <label class="rsvp-label" for="rsvpPax">Jumlah Kehadiran (Pax)</label>
+        <input class="rsvp-input" id="rsvpPax" name="pax" type="number" min="1" step="1" inputmode="numeric" value="1" required />
+        <button class="action-btn" type="submit"><span class="ti ti-brand-whatsapp btn-icon" aria-hidden="true"></span>Sahkan Kehadiran</button>
+        <p class="rsvp-hint">Mesej WhatsApp akan sertakan jumlah pax anda.</p>
+      </form>
+
+      <p class="footer-note" style="margin-top: 22px;">
+        1 Ogos 2026 | Muhammad Al Fateh &amp; Nor Nadia
+      </p>
+    </article>
+  </section>
+
+  <section class="screen" id="ucapan">
+    <article class="card fade-in">
+      <h2 class="section-title">Ucapan</h2>
+      <p class="center-text">
+        Titipkan ucapan dan doa anda untuk kedua mempelai.
+      </p>
+
+      <form class="wish-form" id="wishForm">
+        <input class="wish-input" id="wishName" name="name" type="text" maxlength="60" placeholder="Nama anda" required />
+        <textarea class="wish-textarea" id="wishMessage" name="message" maxlength="500" placeholder="Ucapan untuk pengantin" required></textarea>
+        <button class="action-btn" type="submit"><span class="ti ti-heart btn-icon" aria-hidden="true"></span>Hantar Ucapan</button>
+      </form>
+
+      <div class="wish-list" id="wishList"></div>
+      <p class="wish-empty" id="wishEmpty">Belum ada ucapan. Jadilah yang pertama menulis ucapan.</p>
+    </article>
+  </section>
+
+  <script>
+    (function () {
+      var sections = document.querySelectorAll(".screen");
+      var navLinks = document.querySelectorAll(".top-nav a");
+      var revealEls = document.querySelectorAll(".fade-in");
+
+      var sectionObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach(function (link) {
+            link.classList.toggle("active", link.getAttribute("href") === "#" + entry.target.id);
+          });
+        });
+      }, { threshold: 0.55 });
+
+      sections.forEach(function (section) { sectionObserver.observe(section); });
+
+      var revealObserver = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.2 });
+
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+
+      var target = new Date("2026-08-01T19:45:00+08:00").getTime();
+      function pad(n) { return n < 10 ? "0" + n : String(n); }
+
+      function updateCountdown() {
+        var diff = target - Date.now();
+        if (diff <= 0) {
+          document.getElementById("countdown").innerHTML = "<div class='cd-box'><span class='cd-value'>00</span><span class='cd-label'>Hari Bahagia</span></div>";
+          return;
+        }
+
+        var days = Math.floor(diff / 86400000);
+        var hours = Math.floor((diff % 86400000) / 3600000);
+        var mins = Math.floor((diff % 3600000) / 60000);
+        var secs = Math.floor((diff % 60000) / 1000);
+
+        document.getElementById("days").textContent = pad(days);
+        document.getElementById("hours").textContent = pad(hours);
+        document.getElementById("mins").textContent = pad(mins);
+        document.getElementById("secs").textContent = pad(secs);
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      var flowerField = document.getElementById("flowerField");
+      for (var i = 0; i < 36; i += 1) {
+        var petal = document.createElement("span");
+        petal.className = "petal";
+        petal.style.left = Math.random() * 100 + "%";
+        petal.style.top = (-220 - Math.random() * 220) + "px";
+        petal.style.animationDuration = 7 + Math.random() * 11 + "s";
+        petal.style.animationDelay = Math.random() * 9 + "s";
+        petal.style.setProperty("--drift", (Math.random() * 260 - 130) + "px");
+        petal.style.setProperty("--scale", (0.9 + Math.random() * 1.05).toFixed(2));
+        petal.style.opacity = String(0.45 + Math.random() * 0.45);
+        flowerField.appendChild(petal);
+      }
+
+      var audio = document.getElementById("weddingAudio");
+      var playPauseBtn = document.getElementById("playPauseBtn");
+      var nextSongBtn = document.getElementById("nextSongBtn");
+      var audioStatus = document.getElementById("audioStatus");
+
+      var playlist = [
+        "WeddingNasheed.mp3",
+      ];
+
+      var currentIndex = -1;
+
+      function songName(path) {
+        return path.split("/").pop();
+      }
+
+      function pickRandomIndex() {
+        if (playlist.length <= 1) return 0;
+        var next = currentIndex;
+        while (next === currentIndex) {
+          next = Math.floor(Math.random() * playlist.length);
+        }
+        return next;
+      }
+
+      function loadRandomSong() {
+        currentIndex = pickRandomIndex();
+        audio.src = playlist[currentIndex];
+        audioStatus.textContent = "Lagu dipilih: " + songName(audio.src);
+      }
+
+      function updatePlayButton(isPlaying) {
+        playPauseBtn.textContent = isPlaying ? "Pause" : "Play";
+      }
+
+      function playAudio() {
+        audio.play().then(function () {
+          updatePlayButton(true);
+          audioStatus.textContent = "Sedang dimainkan: " + songName(audio.src);
+        }).catch(function () {
+          updatePlayButton(false);
+          audioStatus.textContent = "Autoplay disekat browser. Cuba fokus tab ini atau tekan Play.";
+        });
+      }
+
+      function attemptAutoplay() {
+        if (!audio.src) {
+          loadRandomSong();
+        }
+        playAudio();
+      }
+
+      playPauseBtn.addEventListener("click", function () {
+        if (!audio.src) {
+          loadRandomSong();
+          playAudio();
+          return;
+        }
+
+        if (audio.paused) {
+          playAudio();
+        } else {
+          audio.pause();
+          updatePlayButton(false);
+          audioStatus.textContent = "Lagu dijeda. Tekan Play untuk sambung.";
+        }
+      });
+
+      nextSongBtn.addEventListener("click", function () {
+        loadRandomSong();
+        playAudio();
+      });
+
+      audio.addEventListener("ended", function () {
+        loadRandomSong();
+        playAudio();
+      });
+
+      audio.addEventListener("play", function () {
+        updatePlayButton(true);
+      });
+
+      audio.addEventListener("pause", function () {
+        updatePlayButton(false);
+      });
+
+      audio.addEventListener("error", function () {
+        audioStatus.textContent = "MP3 tidak dijumpai. Letak fail dalam folder assets/music/.";
+      });
+
+      // Try autoplay by default and retry on common lifecycle events.
+      attemptAutoplay();
+      window.addEventListener("load", attemptAutoplay);
+      window.addEventListener("focus", attemptAutoplay);
+      window.addEventListener("pageshow", attemptAutoplay);
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") attemptAutoplay();
+      });
+
+      function startOnce() {
+        if (audio.paused) playAudio();
+        window.removeEventListener("pointerdown", startOnce);
+      }
+      window.addEventListener("pointerdown", startOnce, { once: true });
+
+      var rsvpForm = document.getElementById("rsvpForm");
+      var rsvpPaxInput = document.getElementById("rsvpPax");
+
+      if (rsvpForm && rsvpPaxInput) {
+        rsvpForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var pax = Number(rsvpPaxInput.value);
+          if (!Number.isInteger(pax) || pax < 1) {
+            rsvpPaxInput.focus();
+            rsvpPaxInput.reportValidity();
+            return;
+          }
+
+          var message = "Saya akan hadir ke Majlis Perkahwinan Nadia & Al Fateh pada 1 Ogos 2026. Pax: " + pax + ".";
+          var waUrl = "https://wa.me/60147567607?text=" + encodeURIComponent(message);
+          window.open(waUrl, "_blank", "noopener,noreferrer");
+        });
+      }
+
+      var wishForm = document.getElementById("wishForm");
+      var wishNameInput = document.getElementById("wishName");
+      var wishMessageInput = document.getElementById("wishMessage");
+      var wishList = document.getElementById("wishList");
+      var wishEmpty = document.getElementById("wishEmpty");
+      var allWishes = [];
+
+      var ucapanApiBase = window.UCAPAN_API_BASE || "https://api.kimmohito.com";
+      var clientSessionIdKey = "nadia-alfateh-ucapan-client-session-id";
+      var ownedWishIdsKey = "nadia-alfateh-ucapan-owned-ids-session";
+      var ownedWishKeysKey = "nadia-alfateh-ucapan-owned-keys-session";
+
+      function getClientSessionId() {
+        var id = sessionStorage.getItem(clientSessionIdKey);
+        if (id) return id;
+        id = "s_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 10);
+        sessionStorage.setItem(clientSessionIdKey, id);
+        return id;
+      }
+
+      var clientSessionId = getClientSessionId();
+
+      function readJsonArray(key) {
+        try {
+          var parsed = JSON.parse(sessionStorage.getItem(key) || "[]");
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (_) {
+          return [];
+        }
+      }
+
+      function saveJsonArray(key, value) {
+        sessionStorage.setItem(key, JSON.stringify(value));
+      }
+
+      function getOwnedIdList() {
+        return readJsonArray(ownedWishIdsKey).map(function (item) { return String(item); });
+      }
+
+      function getOwnedKeyList() {
+        return readJsonArray(ownedWishKeysKey).map(function (item) { return String(item); });
+      }
+
+      function rememberOwnedWish(wish) {
+        var ids = getOwnedIdList();
+        var keys = getOwnedKeyList();
+
+        if (wish && wish.id != null) {
+          var id = String(wish.id);
+          if (ids.indexOf(id) === -1) ids.push(id);
+          saveJsonArray(ownedWishIdsKey, ids);
+        }
+
+        if (wish && wish._key) {
+          if (keys.indexOf(wish._key) === -1) keys.push(wish._key);
+          saveJsonArray(ownedWishKeysKey, keys);
+        }
+      }
+
+      function unrememberOwnedWish(wish) {
+        var ids = getOwnedIdList();
+        var keys = getOwnedKeyList();
+
+        if (wish && wish.id != null) {
+          ids = ids.filter(function (id) { return id !== String(wish.id); });
+          saveJsonArray(ownedWishIdsKey, ids);
+        }
+
+        if (wish && wish._key) {
+          keys = keys.filter(function (key) { return key !== wish._key; });
+          saveJsonArray(ownedWishKeysKey, keys);
+        }
+      }
+
+      function safeText(value) {
+        return String(value || "").trim();
+      }
+
+      function wishKey(name, message) {
+        return safeText(name).toLowerCase() + "::" + safeText(message).toLowerCase();
+      }
+
+      function parseWishList(data) {
+        return Array.isArray(data)
+          ? data
+          : (Array.isArray(data && data.wishes)
+            ? data.wishes
+            : (Array.isArray(data && data.data) ? data.data : []));
+      }
+
+      function renderWishes() {
+        if (!wishList || !wishEmpty) return;
+        wishList.innerHTML = "";
+
+        if (!allWishes.length) {
+          wishEmpty.style.display = "block";
+          return;
+        }
+
+        wishEmpty.style.display = "none";
+
+        allWishes.forEach(function (wish) {
+          var item = document.createElement("article");
+          item.className = "wish-item";
+
+          var name = document.createElement("p");
+          name.className = "wish-name";
+          name.textContent = safeText(wish.name) || "Tetamu";
+
+          var message = document.createElement("p");
+          message.className = "wish-message";
+          message.textContent = safeText(wish.message);
+
+          item.appendChild(name);
+          item.appendChild(message);
+
+          if (wish._owned && wish.id) {
+            var actions = document.createElement("div");
+            actions.className = "wish-actions";
+
+            var editBtn = document.createElement("button");
+            editBtn.type = "button";
+            editBtn.className = "wish-action-btn";
+            editBtn.innerHTML = "<span class='ti ti-edit' aria-hidden='true'></span>Edit";
+            editBtn.addEventListener("click", function () { handleEditWish(wish); });
+
+            var deleteBtn = document.createElement("button");
+            deleteBtn.type = "button";
+            deleteBtn.className = "wish-action-btn";
+            deleteBtn.innerHTML = "<span class='ti ti-trash' aria-hidden='true'></span>Delete";
+            deleteBtn.addEventListener("click", function () { handleDeleteWish(wish); });
+
+            actions.appendChild(editBtn);
+            actions.appendChild(deleteBtn);
+            item.appendChild(actions);
+          }
+
+          wishList.appendChild(item);
+        });
+      }
+
+      function normalizeWishes(items) {
+        var ownedIds = getOwnedIdList();
+        var ownedKeys = getOwnedKeyList();
+
+        if (!Array.isArray(items)) return [];
+        return items
+          .map(function (entry) {
+            var name = safeText(entry && entry.name);
+            var message = safeText(entry && entry.message);
+            var key = wishKey(name, message);
+            var id = entry && entry.id != null ? String(entry.id) : null;
+
+            return {
+              id: id,
+              name: name,
+              message: message,
+              _key: key,
+              _owned: (id && ownedIds.indexOf(id) !== -1) || ownedKeys.indexOf(key) !== -1
+            };
+          })
+          .filter(function (entry) {
+            return entry.name && entry.message;
+          });
+      }
+
+      function getApiBases() {
+        var candidates = [];
+
+        function pushUnique(base) {
+          if (candidates.indexOf(base) === -1) {
+            candidates.push(base);
+          }
+        }
+
+        if (ucapanApiBase) {
+          pushUnique(ucapanApiBase.replace(/\/$/, ""));
+        }
+
+        if (window.location.protocol !== "file:") {
+          pushUnique("");
+        }
+
+        pushUnique("http://localhost:3000");
+
+        return candidates;
+      }
+
+      function fetchWithApiFallback(path, options) {
+        var bases = getApiBases();
+        var index = 0;
+
+        function attempt() {
+          if (index >= bases.length) {
+            return Promise.reject(new Error("api_unreachable"));
+          }
+
+          var base = bases[index];
+          index += 1;
+
+          return fetch(base + path, options)
+            .then(function (response) {
+              if (!response.ok) {
+                throw new Error("http_" + response.status);
+              }
+              ucapanApiBase = base;
+              return response;
+            })
+            .catch(function () {
+              return attempt();
+            });
+        }
+
+        return attempt();
+      }
+
+      function loadWishes() {
+        fetchWithApiFallback("/api/ucapan/list", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ client_session_id: clientSessionId })
+        })
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            allWishes = normalizeWishes(parseWishList(data));
+            renderWishes();
+          })
+          .catch(function () {
+            allWishes = [];
+            renderWishes();
+            if (wishEmpty) {
+              wishEmpty.textContent = "Ucapan belum boleh diakses. Semak API.";
+            }
+          });
+      }
+
+      function handleEditWish(wish) {
+        if (!wish || !wish.id) {
+          alert("Edit perlukan ID dari API.");
+          return;
+        }
+
+        var nextMessage = prompt("Kemaskini ucapan anda:", wish.message);
+        if (nextMessage == null) return;
+        nextMessage = safeText(nextMessage);
+        if (!nextMessage) return;
+
+        fetchWithApiFallback("/api/ucapan/" + encodeURIComponent(wish.id), {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: wish.name,
+            message: nextMessage,
+            client_session_id: clientSessionId,
+            client_token: clientSessionId
+          })
+        })
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            allWishes = normalizeWishes(parseWishList(data));
+            renderWishes();
+          })
+          .catch(function () {
+            alert("Edit gagal. Pastikan endpoint PUT /api/ucapan/{id} tersedia.");
+          });
+      }
+
+      function handleDeleteWish(wish) {
+        if (!wish || !wish.id) {
+          alert("Delete perlukan ID dari API.");
+          return;
+        }
+
+        if (!confirm("Padam ucapan ini?")) return;
+
+        fetchWithApiFallback("/api/ucapan/" + encodeURIComponent(wish.id), {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            client_session_id: clientSessionId,
+            client_token: clientSessionId
+          })
+        })
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            unrememberOwnedWish(wish);
+            allWishes = normalizeWishes(parseWishList(data));
+            renderWishes();
+          })
+          .catch(function () {
+            alert("Delete gagal. Pastikan endpoint DELETE /api/ucapan/{id} tersedia.");
+          });
+      }
+
+      if (wishForm && wishNameInput && wishMessageInput) {
+        wishForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var name = safeText(wishNameInput.value);
+          var message = safeText(wishMessageInput.value);
+
+          if (!name || !message) {
+            if (!name) wishNameInput.focus();
+            else wishMessageInput.focus();
+            return;
+          }
+
+          fetchWithApiFallback("/api/ucapan", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: name,
+              message: message,
+              client_session_id: clientSessionId,
+              client_token: clientSessionId
+            })
+          })
+            .then(function (response) { return response.json(); })
+            .then(function (data) {
+              var updated = parseWishList(data);
+              var created = data && data.wish ? data.wish : null;
+
+              if (!created && Array.isArray(updated)) {
+                created = updated.find(function (item) {
+                  return safeText(item && item.name) === name && safeText(item && item.message) === message;
+                });
+              }
+
+              if (created) {
+                rememberOwnedWish({
+                  id: created.id != null ? created.id : null,
+                  _key: wishKey(created.name, created.message)
+                });
+              } else {
+                rememberOwnedWish({ id: null, _key: wishKey(name, message) });
+              }
+
+              allWishes = normalizeWishes(updated);
+              renderWishes();
+              wishForm.reset();
+              wishNameInput.focus();
+            })
+            .catch(function () {
+              alert("Ucapan tidak berjaya disimpan. Semak endpoint API.");
+            });
+        });
+      }
+
+      loadWishes();
+    })();
+  </script>
+</body>
+</html>
