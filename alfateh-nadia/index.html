@@ -766,6 +766,304 @@
         width: 100%;
       }
     }
+
+    /* ==============================
+      CYBER WEDDING WISH EFFECT
+    ================================ */
+
+.cyberWishCard {
+    position: relative;
+    padding: 18px;
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.95),
+            rgba(251,245,243,.9)
+        );
+
+    border: 1px solid rgba(188,146,89,.35);
+
+    box-shadow:
+        0 15px 35px rgba(102,0,51,.12),
+        inset 0 0 25px rgba(188,146,89,.08);
+
+    overflow: hidden;
+}
+
+
+/* scan lines */
+.cyberWishCard::before {
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    color: black;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 3px,
+            rgba(188,146,89,.04) 4px
+        );
+
+    pointer-events:none;
+}
+
+
+/* FULL CARD GOLD LIGHT SWEEP */
+.cyberWishCard::after {
+
+    content:"";
+
+    position:absolute;
+
+    top:-30%;
+    left:-60%;
+
+    width:35%;
+    height:160%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,235,180,.8),
+            rgba(188,146,89,.55),
+            transparent
+        );
+
+    transform:
+        rotate(20deg);
+
+    animation:
+        cardGoldSweep 4s ease-in-out infinite;
+
+    pointer-events:none;
+
+}
+
+
+
+@keyframes cardGoldSweep {
+
+    0% {
+        left:-60%;
+    }
+
+    35% {
+        left:120%;
+    }
+
+    100% {
+        left:120%;
+    }
+
+}
+
+
+
+
+
+    /* ==============================
+      ADMIN NAME GLITCH
+    ================================ */
+
+    .cyberWishAuthor {
+
+        position:relative;
+
+        color:#6a2840;
+
+        font-family:"Marcellus", serif;
+
+        font-size:.85rem;
+
+        letter-spacing:.15em;
+
+        text-transform:uppercase;
+
+        margin-bottom:12px;
+
+        animation:
+            adminGlitch 4s infinite;
+    }
+
+
+    .cyberWishAuthor a {
+
+        color:#bc9259;
+
+        text-decoration:none;
+
+        position:relative;
+
+    }
+
+
+    /* RGB glitch layers */
+
+    .cyberWishAuthor a::before,
+    .cyberWishAuthor a::after {
+
+        content:attr(href);
+
+        position:absolute;
+
+        left:0;
+        top:0;
+
+        opacity:.5;
+
+    }
+
+
+    .cyberWishAuthor a::before {
+
+        color:#c2185b;
+
+        transform:translate(-2px,0);
+
+        clip-path:inset(0 0 50% 0);
+
+        animation:
+            glitchTop 2.5s infinite;
+
+    }
+
+
+    .cyberWishAuthor a::after {
+
+        color:#bc9259;
+
+        transform:translate(2px,0);
+
+        clip-path:inset(50% 0 0 0);
+
+        animation:
+            glitchBottom 2.5s infinite;
+
+    }
+
+
+
+    @keyframes adminGlitch {
+
+        0%,90%,100% {
+            transform:none;
+        }
+
+        92% {
+            transform:translateX(-2px);
+        }
+
+        94% {
+            transform:translateX(2px);
+        }
+
+        96% {
+            transform:none;
+        }
+
+    }
+
+
+    @keyframes glitchTop {
+
+        0%,90%,100% {
+            clip-path:inset(0 0 100% 0);
+        }
+
+        92% {
+            clip-path:inset(0 0 40% 0);
+        }
+
+    }
+
+
+    @keyframes glitchBottom {
+
+        0%,90%,100% {
+            clip-path:inset(100% 0 0 0);
+        }
+
+        92% {
+            clip-path:inset(40% 0 0 0);
+        }
+
+    }
+
+
+
+
+    @keyframes messageGlow {
+
+        0%,100% {
+            text-shadow:
+            0 0 5px rgba(188,146,89,.2);
+        }
+
+        50% {
+            text-shadow:
+            0 0 15px rgba(188,146,89,.6);
+        }
+
+    }
+
+.cyberWishDecrypt span.glitch {
+
+    animation:
+        persistentGlitch .25s infinite;
+
+    text-shadow:
+        -2px 0 #bc9259,
+         2px 0 #660033;
+
+}
+
+
+@keyframes persistentGlitch {
+
+    0% {
+        transform: translate(0);
+        opacity:1;
+    }
+
+
+    20% {
+        transform:
+            translate(-3px,1px)
+            skewX(-8deg);
+    }
+
+
+    40% {
+        transform:
+            translate(3px,-1px)
+            skewX(8deg);
+    }
+
+
+    60% {
+        transform:
+            translate(-2px,0);
+    }
+
+
+    80% {
+        transform:
+            translate(2px,2px);
+    }
+
+
+    100% {
+        transform:translate(0);
+    }
+
+}
   </style>
 </head>
 <body>
@@ -998,7 +1296,23 @@
         <button class="action-btn" type="submit"><span class="ti ti-heart btn-icon" aria-hidden="true"></span>Hantar Ucapan</button>
       </form>
 
-      <div class="wish-list" id="wishList"></div>
+      <div class="cyberWishList" style="margin-top: 18px;">
+        <article class="cyberWishCard">
+          <p class="cyberWishAuthor">
+            Admin <a href="https://github.com/kimmohito" target="_blank" rel="noopener noreferrer">@kimmohito</a>
+          </p>
+          <p
+            class="cyberWishDecrypt"
+            data-value="Wishing you both a lifetime of love, happiness, and togetherness. May you always support each other, cherish every moment, and walk hand in hand through every journey life brings. "
+            style="color: black; font-size: 1rem; line-height: 1.6;"
+          >
+            <img src="https://cdn.pixabay.com/animation/2023/09/22/12/24/12-24-20-505_512.gif" width="20px"/>
+          </p>
+        </article>
+      </div>
+      
+      <div class="wish-list" id="wishList">
+      </div>
       <p class="wish-empty" id="wishEmpty">Belum ada ucapan. Jadilah yang pertama menulis ucapan.</p>
     </article>
   </section>
@@ -1548,6 +1862,218 @@
 
       loadWishes();
     })();
+
+    document.querySelectorAll(".cyberWishDecrypt").forEach(element => {
+
+    const finalText = element.dataset.value;
+
+    const chars =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789✦✧♡◇◆";
+
+    const words = finalText.split(" ");
+
+    element.style.display = "block";
+    element.style.wordSpacing = "8px";
+
+    const spans = words.map(word => {
+
+        const span = document.createElement("span");
+
+        span.style.display = "inline-block";
+        span.style.marginRight = "6px";
+        span.style.opacity = "0";
+        span.style.filter = "blur(8px)";
+        span.style.transform =
+            `translate(
+                ${(Math.random()*80-40)}px,
+                ${(Math.random()*40-20)}px
+            )
+            scale(.5)`;
+
+        span.textContent =
+            Array.from(word)
+            .map(() =>
+                chars[Math.floor(Math.random()*chars.length)]
+            )
+            .join("");
+
+        element.appendChild(span);
+
+        return {
+            span,
+            word,
+            progress:0,
+            speed: 0.04 + Math.random()*0.08,
+            done:false
+        };
+
+    });
+
+
+    let frame;
+
+
+    function animate(){
+
+        let finished = true;
+
+
+        spans.forEach(item=>{
+
+            if(item.done)
+                return;
+
+
+            finished=false;
+
+
+            item.progress += item.speed;
+
+
+            const reveal =
+                Math.floor(
+                    item.word.length *
+                    item.progress
+                );
+
+
+            item.span.textContent =
+                item.word
+                .split("")
+                .map((char,index)=>{
+
+                    if(index < reveal)
+                        return char;
+
+
+                    return chars[
+                        Math.floor(
+                            Math.random()*chars.length
+                        )
+                    ];
+
+                })
+                .join("");
+
+
+            item.span.style.opacity =
+                Math.min(item.progress,1);
+
+
+            item.span.style.filter =
+                `blur(${Math.max(
+                    0,
+                    8-(item.progress*8)
+                )}px)`;
+
+
+            item.span.style.transform =
+                `
+                translate(
+                    ${Math.max(
+                        0,
+                        (1-item.progress)*(
+                            Math.random()*40-20
+                        )
+                    )}px,
+                    ${Math.max(
+                        0,
+                        (1-item.progress)*(
+                            Math.random()*20-10
+                        )
+                    )}px
+                )
+                scale(
+                    ${0.5 + item.progress*0.5}
+                )
+                `;
+
+
+            if(item.progress >= 1){
+
+                item.span.textContent=item.word;
+                item.span.style.opacity=1;
+                item.span.style.filter="blur(0)";
+                item.span.style.transform="scale(1)";
+                item.done=true;
+
+            }
+
+        });
+
+
+        if(!finished){
+
+            frame=requestAnimationFrame(animate);
+
+        }
+
+    }
+
+
+    animate();
+
+});
+
+// PERSISTENT RANDOM WORD GLITCH
+const glitchInterval = setInterval(() => {
+
+    const randomWord =
+        spans[
+            Math.floor(Math.random() * spans.length)
+        ];
+
+
+    const span = randomWord.span;
+
+
+    // avoid stacking too much
+    if (span.classList.contains("glitch"))
+        return;
+
+
+    span.classList.add("glitch");
+
+
+    const original = span.textContent;
+
+
+    // temporary corruption
+    span.textContent =
+        Array.from(original)
+        .map(char => {
+
+            if (Math.random() > 0.45) {
+                return chars[
+                    Math.floor(
+                        Math.random() * chars.length
+                    )
+                ];
+            }
+
+            return char;
+
+        })
+        .join("");
+
+
+
+    setTimeout(() => {
+
+        // restore only if already decrypted
+        if (randomWord.done) {
+            span.textContent = randomWord.word;
+        }
+
+        span.classList.remove("glitch");
+
+
+    }, 120 + Math.random()*300);
+
+
+
+}, 250);
+
   </script>
 </body>
 </html>
