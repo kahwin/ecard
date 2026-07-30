@@ -27,7 +27,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-snap-type: y mandatory;
+      scroll-snap-type: y proximity;
     }
 
     body {
@@ -1198,6 +1198,8 @@
       var wishList = document.getElementById("wishList");
       var wishEmpty = document.getElementById("wishEmpty");
       var allWishes = [];
+      var ucapanFetchPageSize = 200;
+      var ucapanMaxPages = 50;
 
       var ucapanApiBase = window.UCAPAN_API_BASE || "https://api.kimmohito.com";
       var clientSessionIdKey = "nadia-alfateh-ucapan-client-session-id";
@@ -1280,6 +1282,45 @@
           : (Array.isArray(data && data.wishes)
             ? data.wishes
             : (Array.isArray(data && data.data) ? data.data : []));
+      }
+
+      function parsePaginationNumber(value) {
+        var number = Number(value);
+        return Number.isFinite(number) && number > 0 ? number : null;
+      }
+
+      function parseWishPage(data) {
+        var meta = data && data.meta ? data.meta : null;
+        var currentPage = parsePaginationNumber(
+          data && (data.current_page || data.currentPage || data.page) ||
+          meta && (meta.current_page || meta.currentPage || meta.page)
+        );
+        var lastPage = parsePaginationNumber(
+          data && (data.last_page || data.lastPage) ||
+          meta && (meta.last_page || meta.lastPage)
+        );
+        var nextPage = parsePaginationNumber(
+          data && (data.next_page || data.nextPage) ||
+          meta && (meta.next_page || meta.nextPage)
+        );
+        var hasMore = Boolean(
+          data && (data.has_more || data.hasMore) ||
+          meta && (meta.has_more || meta.hasMore)
+        );
+        var nextPageUrl = safeText(
+          data && (data.next_page_url || data.nextPageUrl) ||
+          data && data.links && data.links.next ||
+          meta && (meta.next_page_url || meta.nextPageUrl)
+        );
+
+        return {
+          items: parseWishList(data),
+          currentPage: currentPage,
+          lastPage: lastPage,
+          nextPage: nextPage,
+          hasMore: hasMore,
+          nextPageUrl: nextPageUrl
+        };
       }
 
       function renderWishes() {
@@ -1409,13 +1450,71 @@
       }
 
       function loadWishes() {
-        return fetchWithApiFallback("/api/ucapan", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        })
-          .then(function (response) { return response.json(); })
-          .then(function (data) {
-            allWishes = normalizeWishes(parseWishList(data));
+        var collected = [];
+        var seen = Object.create(null);
+
+        function appendUnique(items) {
+          if (!Array.isArray(items)) return;
+
+          items.forEach(function (item) {
+            var id = item && item.id != null ? String(item.id) : "";
+            var key = wishKey(item && item.name, item && item.message);
+            var unique = id ? "id:" + id : "key:" + key;
+
+            if (!seen[unique]) {
+              seen[unique] = true;
+              collected.push(item);
+            }
+          });
+        }
+
+        function buildPageQuery(page) {
+          var params = new URLSearchParams();
+          params.set("page", String(page));
+          params.set("per_page", String(ucapanFetchPageSize));
+          params.set("size", String(ucapanFetchPageSize));
+          params.set("limit", String(ucapanFetchPageSize));
+          return params.toString();
+        }
+
+        function getNextPage(parsed, page) {
+          if (parsed.nextPage && parsed.nextPage > page) {
+            return parsed.nextPage;
+          }
+
+          if (parsed.currentPage && parsed.lastPage && parsed.currentPage < parsed.lastPage) {
+            return page + 1;
+          }
+
+          if (!parsed.currentPage && !parsed.lastPage && (parsed.hasMore || parsed.nextPageUrl)) {
+            return page + 1;
+          }
+
+          return null;
+        }
+
+        function loadPage(page) {
+          return fetchWithApiFallback("/api/ucapan?" + buildPageQuery(page), {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+          })
+            .then(function (response) { return response.json(); })
+            .then(function (data) {
+              var parsed = parseWishPage(data);
+              appendUnique(parsed.items);
+
+              var nextPage = getNextPage(parsed, page);
+              if (nextPage && nextPage <= ucapanMaxPages) {
+                return loadPage(nextPage);
+              }
+
+              return collected;
+            });
+        }
+
+        return loadPage(1)
+          .then(function (items) {
+            allWishes = normalizeWishes(items);
             renderWishes();
           })
           .catch(function () {
